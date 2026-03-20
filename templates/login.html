@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center items-center h-[80vh]">
+
+<form method="post" class="glass p-10 rounded-2xl w-96 space-y-4 fade-in">
+{% csrf_token %}
+
+<h2 class="text-3xl text-center">Вход</h2>
+
+<input name="email" placeholder="Email"
+class="w-full p-3 rounded bg-black/30 focus:ring-2 focus:ring-indigo-500">
+
+<input name="password" type="password" placeholder="Пароль"
+class="w-full p-3 rounded bg-black/30 focus:ring-2 focus:ring-indigo-500">
+
+<button class="w-full bg-indigo-500 py-3 rounded-xl hover:scale-105 transition">
+Войти
+</button>
+
+<a href="{% url 'reset_password' %}" class="text-sm text-gray-400 text-center block">
+Забыли пароль?
+</a>
+
+</form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-6xl mx-auto space-y-8">
+
+<!-- PROFILE HEADER -->
+<div class="glass p-8 rounded-2xl flex justify-between items-center">
+
+<div>
+<h1 class="text-3xl font-bold">{{ user.username }}</h1>
+<p class="text-gray-400">{{ user.email }}</p>
+</div>
+
+<!-- ACTION BUTTON -->
+<a href="{% url 'change_password' %}"
+class="bg-indigo-500 px-4 py-2 rounded-xl hover:scale-105 transition">
+🔐 Сменить пароль
+</a>
+
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="grid grid-cols-3 gap-6">
+
+<a href="{% url 'category_manage' %}"
+class="glass p-6 rounded-2xl hover:scale-105 transition glow text-center">
+
+<div class="text-3xl mb-2">📂</div>
+<h3 class="text-lg">Категории</h3>
+<p class="text-gray-400 text-sm">Управление категориями</p>
+
+</a>
+
+<a href="{% url 'author_manage' %}"
+class="glass p-6 rounded-2xl hover:scale-105 transition glow text-center">
+
+<div class="text-3xl mb-2">✍️</div>
+<h3 class="text-lg">Авторы</h3>
+<p class="text-gray-400 text-sm">Редактировать авторов</p>
+
+</a>
+
+<a href="{% url 'book_create' %}"
+class="glass p-6 rounded-2xl hover:scale-105 transition glow text-center">
+
+<div class="text-3xl mb-2">📚</div>
+<h3 class="text-lg">Добавить книгу</h3>
+<p class="text-gray-400 text-sm">Создать новую книгу</p>
+
+</a>
+
+</div>
+
+<!-- USER BOOKS -->
+<div>
+
+<h2 class="text-2xl mb-4">Мои книги</h2>
+
+<div class="grid grid-cols-3 gap-6">
+
+{% for book in user.books.all %}
+<div class="glass p-4 rounded-2xl hover:scale-105 transition glow">
+
+<img src="{{book.image.url}}" class="rounded mb-3 h-48 w-full object-cover">
+
+<h3 class="text-lg">{{book.title}}</h3>
+
+<div class="flex justify-between items-center mt-3">
+
+<a href="{% url 'book_detail' book.id %}"
+class="text-indigo-400 text-sm hover:underline">
+Открыть
+</a>
+
+<div class="flex gap-3">
+
+<a href="{% url 'book_update' book.id %}"
+class="text-yellow-400 hover:scale-110 transition">
+✏️
+</a>
+
+<a href="{% url 'book_delete' book.id %}"
+class="text-red-400 hover:scale-110 transition">
+🗑
+</a>
+
+</div>
+
+</div>
+
+</div>
+{% empty %}
+<p class="text-gray-400">У вас пока нет книг</p>
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

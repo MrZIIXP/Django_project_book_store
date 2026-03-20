@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="max-w-3xl mx-auto">
+	<form method="post" class="flex gap-2 mb-4">
+		{% csrf_token %}
+		<input
+			name="name"
+			placeholder="Новая категория"
+			class="flex-1 p-3 rounded bg-black/30"
+		/>
+		<input type="hidden" name="action" value="create" />
+		<button class="bg-green-500 px-4 rounded">+</button>
+	</form>
+
+	{% for c in categories %}
+	<div class="glass p-3 rounded flex justify-between items-center mb-2">
+		<form method="post" class="flex gap-2 w-full">
+			{% csrf_token %}
+			<input name="name" value="{{c.name}}" class="flex-1 bg-transparent" />
+			<input type="hidden" name="pk" value="{{c.id}}" />
+			<input type="hidden" name="action" value="update" />
+
+			<button class="text-yellow-400">💾</button>
+		</form>
+
+		<form method="post">
+			{% csrf_token %}
+			<input type="hidden" name="pk" value="{{c.id}}" />
+			<input type="hidden" name="action" value="delete" />
+			<button class="text-red-400">✖</button>
+		</form>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}

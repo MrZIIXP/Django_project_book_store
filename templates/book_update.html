@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data"
+class="max-w-xl mx-auto glass p-8 rounded-2xl space-y-4 fade-in">
+
+{% csrf_token %}
+
+<input name="title" value="{{book.title}}"
+class="w-full p-3 rounded bg-black/30">
+
+<textarea name="description"
+class="w-full p-3 rounded bg-black/30">{{book.description}}</textarea>
+
+<input name="price" value="{{book.price}}"
+class="w-full p-3 rounded bg-black/30">
+
+<select name="author" class="w-full p-3 rounded bg-black/30">
+{% for a in authors %}
+<option value="{{a.id}}" {% if a.id == book.author.id %}selected{% endif %}>
+{{a.full_name}}
+</option>
+{% endfor %}
+</select>
+
+<select name="category" class="w-full p-3 rounded bg-black/30">
+{% for c in categories %}
+<option value="{{c.id}}" {% if c.id == book.category.id %}selected{% endif %}>
+{{c.name}}
+</option>
+{% endfor %}
+</select>
+
+<input type="file" name="image">
+
+<button class="bg-indigo-500 w-full py-3 rounded-xl hover:scale-105 transition">
+Обновить книгу
+</button>
+
+</form>
+
+{% endblock %}

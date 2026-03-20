@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %} BookFlow {% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+body {
+    background: radial-gradient(circle at 10% 10%, #0f172a, #020617);
+}
+
+/* Glow эффект */
+.glow:hover {
+    box-shadow: 0 0 30px rgba(99,102,241,0.7);
+}
+
+/* Плавные появления */
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(10px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+/* Glass */
+.glass {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+}
+</style>
+
+{% block extra_head %}{% endblock %}
+</head>
+
+<body class="text-white">
+
+<!-- HEADER -->
+<header class="fixed top-0 w-full z-50 glass border-b border-white/10">
+<div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+
+<a href="{% url 'home' %}" class="text-2xl font-bold hover:scale-110 transition">
+📚 BookFlow
+</a>
+
+<div class="flex gap-6 items-center">
+
+<a href="{% url 'book_list' %}" class="hover:text-indigo-400 transition">Книги</a>
+
+{% if has_user %}
+<span class="text-indigo-300">{{ user.username }}</span>
+<a href="{% url 'profile' %}" class="hover:text-green-400">Профиль</a>
+<a href="{% url 'logout' %}" class="text-red-400">Выйти</a>
+{% else %}
+<a href="{% url 'login' %}">Вход</a>
+<a href="{% url 'register' %}" class="bg-indigo-500 px-4 py-2 rounded-xl">Регистрация</a>
+{% endif %}
+
+</div>
+</div>
+</header>
+
+<div class="pt-24 px-6 min-h-screen">
+{% if messages %}
+<div class="max-w-4xl mx-auto mb-4">
+{% for m in messages %}
+<div class="glass p-3 rounded-xl mb-2 fade-in">
+{{ m }}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
+{% block content %}{% endblock %}
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({duration:800});
+</script>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

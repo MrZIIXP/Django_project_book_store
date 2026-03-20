@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="max-w-3xl mx-auto">
+
+<form method="post" class="space-y-2 mb-6">
+{% csrf_token %}
+<input name="full_name" placeholder="Имя автора"
+class="w-full p-3 rounded bg-black/30">
+
+<textarea name="bio" placeholder="Биография"
+class="w-full p-3 rounded bg-black/30"></textarea>
+
+<input type="hidden" name="action" value="create">
+
+<button class="bg-green-500 px-4 py-2 rounded">Добавить</button>
+</form>
+
+{% for a in authors %}
+<div class="glass p-4 rounded mb-3">
+
+<form method="post" class="space-y-2">
+{% csrf_token %}
+
+<input name="full_name" value="{{a.full_name}}"
+class="w-full bg-transparent">
+
+<textarea name="bio" class="w-full bg-transparent">{{a.bio}}</textarea>
+
+<input type="hidden" name="pk" value="{{a.id}}">
+<input type="hidden" name="action" value="update">
+
+<button class="text-yellow-400">Сохранить</button>
+</form>
+
+<form method="post">
+{% csrf_token %}
+<input type="hidden" name="pk" value="{{a.id}}">
+<input type="hidden" name="action" value="delete">
+<button class="text-red-400">Удалить</button>
+</form>
+
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

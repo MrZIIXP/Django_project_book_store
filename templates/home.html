@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="text-center py-32 relative overflow-hidden">
+
+    <!-- Floating animation -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="animate-pulse text-6xl opacity-10">📚📖📘📗</div>
+    </div>
+
+    <h1 class="text-6xl font-bold mb-6" data-aos="fade-up">
+        Мир книг нового поколения
+    </h1>
+
+    <a href="{% url 'book_list' %}" 
+       class="bg-indigo-500 px-8 py-4 rounded-2xl text-xl hover:scale-110 transition glow">
+        Смотреть книги
+    </a>
+
+</section>
+
+<!-- Stats -->
+<section class="grid grid-cols-3 gap-6 max-w-5xl mx-auto" data-aos="fade-up">
+
+    <div class="glass p-6 rounded-2xl text-center">
+        <h2 class="text-3xl">{{ stats.total_books }}</h2>
+        <p>Книг</p>
+    </div>
+
+    <div class="glass p-6 rounded-2xl text-center">
+        <h2 class="text-3xl">{{ stats.avg_price|floatformat:1 }}$</h2>
+        <p>Средняя цена</p>
+    </div>
+
+    <div class="glass p-6 rounded-2xl text-center">
+        <h2 class="text-3xl">{{ avg_rating.avg_rating }}</h2>
+        <p>Рейтинг</p>
+    </div>
+
+</section>
+
+{% endblock %}

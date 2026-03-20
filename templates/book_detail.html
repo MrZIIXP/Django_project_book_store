@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="max-w-6xl mx-auto grid grid-cols-2 gap-10">
+	<img src="{{book.image.url}}" class="rounded-2xl shadow-lg" />
+
+	<div>
+		<h1 class="text-4xl mb-4">{{book.title}}</h1>
+
+		<p class="text-gray-400 mb-4">{{book.description}}</p>
+
+		<p class="text-indigo-400">Автор: {{book.author.full_name}}</p>
+		<p>Категория: {{book.category.name}}</p>
+
+		{% if has_user %}
+		<!-- Rating -->
+		<div id="stars" class="flex gap-2 mt-4"></div>
+
+		<!-- FORM -->
+		<form method="post">
+			{% csrf_token %}
+			<input type="hidden" name="rating" id="rating" />
+
+			<textarea
+				name="text"
+				placeholder="Ваш отзыв..."
+				class="w-full mt-4 p-3 rounded bg-black/30"
+			></textarea>
+
+			<button class="mt-3 bg-indigo-500 px-4 py-2 rounded">Отправить</button>
+		</form>
+
+		{% else %}
+			<p>Ставить комментарии могут зарегистрированные пользователи</p>
+		{% endif %}
+	</div>
+</div>
+
+<!-- REVIEWS -->
+<div class="max-w-4xl mx-auto mt-10">
+	<h2 class="text-2xl mb-4">Отзывы</h2>
+
+	{% for r in reviews %}
+	<div class="glass p-4 rounded-xl mb-3 fade-in">
+		<p class="text-yellow-400">⭐ {{r.rating}}</p>
+		<p>{{r.text}}</p>
+
+		{% if has_user and user.id == r.user.id %}
+		<a href="{% url 'review_delete' r.id %}" class="text-red-400 text-sm"
+			>Удалить</a
+		>
+		{% endif %}
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %} {% block scripts %}
+<script>
+	const stars = document.getElementById('stars')
+	const input = document.getElementById('rating')
+
+	for (let i = 1; i <= 5; i++) {
+		let s = document.createElement('span')
+		s.innerHTML = '⭐'
+		s.classList = 'text-2xl cursor-pointer opacity-30'
+
+		s.onclick = () => {
+			input.value = i
+			;[...stars.children].forEach((el, idx) => {
+				el.style.opacity = idx < i ? 1 : 0.3
+			})
+		}
+
+		stars.appendChild(s)
+	}
+</script>
+{% endblock %}
