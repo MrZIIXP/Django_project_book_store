@@ -5,10 +5,10 @@ pip install -r requirements.txt
 ```
 2. Создаём .env файл и добавляем в него:
 ```bash
-EMAIL_USER = ziyodulloakhrorov@gmail.com
-EMAIL_APP_PASSWORD = mcxq wgio xzjp cbcy
-EMAIL_PORT = 587
-EMAIL_HOST = smtp.gmail.com
+EMAIL_USER = 
+EMAIL_APP_PASSWORD = 
+EMAIL_PORT = 
+EMAIL_HOST =
 
 NAME_DB = Lesson_12
 ```

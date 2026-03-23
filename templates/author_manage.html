@@ -7,10 +7,10 @@
 <form method="post" class="space-y-2 mb-6">
 {% csrf_token %}
 <input name="full_name" placeholder="Имя автора"
-class="w-full p-3 rounded bg-black/30">
+class="w-full p-3 rounded border border-orange-400">
 
 <textarea name="bio" placeholder="Биография"
-class="w-full p-3 rounded bg-black/30"></textarea>
+class="w-full p-3 rounded border border-orange-400"></textarea>
 
 <input type="hidden" name="action" value="create">
 
@@ -18,7 +18,7 @@ class="w-full p-3 rounded bg-black/30"></textarea>
 </form>
 
 {% for a in authors %}
-<div class="glass p-4 rounded mb-3">
+<div class="bg-gray-100 p-4 rounded mb-3">
 
 <form method="post" class="space-y-2">
 {% csrf_token %}

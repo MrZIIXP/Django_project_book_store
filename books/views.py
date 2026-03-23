@@ -65,7 +65,10 @@ def book_detail(request, pk):
         if Review.objects.filter(book=book, user=user).exists():
             messages.error(request, "Вы уже оставили отзыв")
         else:
-            rating = int(request.POST.get('rating'))
+            try:
+                rating = int(request.POST.get('rating'))
+            except:
+                rating = 0
             text = request.POST.get('text')
 
             if 1 <= rating <= 5:

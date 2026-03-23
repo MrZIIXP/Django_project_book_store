@@ -1,42 +1,94 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section class="text-center py-32 relative overflow-hidden">
+<section class="flex flex-col text-white items-center py-32 overflow-hidden relative h-[70vh]">
+	<!-- Floating animation -->
+    <img src="{% static 'images/books.png' %}" alt="bg-books" class='absolute w-full inset-0 bg-orange-900 cover'>
+    <div class='bg-orange-600/40 w-full h-full absolute z-[5] inset-0'></div>
+	<div class="absolute left-1/2 -translate-x-1/2 top-20 z-10 pointer-events-none">
+		<div class="animate-pulse text-6xl opacity-10">📚📖📘📗</div>
+	</div>
 
-    <!-- Floating animation -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="animate-pulse text-6xl opacity-10">📚📖📘📗</div>
+	<h1 class="text-6xl font-bold mb-12 mt-1 relative z-10" data-aos="fade-up">
+		Мир книг нового поколения
+	</h1>
+
+    <div data-aos="fade-up" class='z-10 relative'>
+        <a
+            href="{% url 'book_list' %}"
+            class="bg-orange-500 text-white tr-dur px-8 py-4 rounded-2xl text-xl hover:scale-110 transition glow"
+        >
+            Смотреть книги
+        </a>
     </div>
-
-    <h1 class="text-6xl font-bold mb-6" data-aos="fade-up">
-        Мир книг нового поколения
-    </h1>
-
-    <a href="{% url 'book_list' %}" 
-       class="bg-indigo-500 px-8 py-4 rounded-2xl text-xl hover:scale-110 transition glow">
-        Смотреть книги
-    </a>
-
 </section>
 
 <!-- Stats -->
-<section class="grid grid-cols-3 gap-6 max-w-5xl mx-auto" data-aos="fade-up">
+<section class="grid grid-cols-3 gap-6 max-w-5xl py-20 mx-auto overflow-hidden" data-aos="fade-up">
+	<div class="glass p-6 rounded-2xl text-center">
+		<h2 class="text-3xl">{{ stats.total_books }}</h2>
+		<p>Книг 📙</p>
+	</div>
 
-    <div class="glass p-6 rounded-2xl text-center">
-        <h2 class="text-3xl">{{ stats.total_books }}</h2>
-        <p>Книг</p>
+	<div class="glass p-6 rounded-2xl text-center">
+		<h2 class="text-3xl">{{ stats.avg_price|floatformat:1 }}$</h2>
+		<p>Средняя цена 💸</p>
+	</div>
+
+	<div class="glass p-6 rounded-2xl text-center">
+		<h2 class="text-3xl">{{ avg_rating.avg_rating }}</h2>
+		<p>Рейтинг ⭐</p>
+	</div>
+</section>
+
+<section class='w-full py-12 overflow-hidden border-y border-gray-100' data-aos="fade-up">
+    <div class='px-20 flex h-[420px]' data-aos="fade-right">
+        <img src="{{book_1.image.url}}" class='w-[30%] rounded-xl h-[410px] object-cover' alt="{{ book_1.title}}">
+        <div class='w-[65%] mx-auto h-full relative'>
+            <h1 class='text-2xl font-bold'>{{book_1.title}}</h1>
+            <h2 class='font-semibold'>By: {{book_1.author}}</h2>
+            <br>
+            <p class='text-gray-600'>{{book_1.description}}</p>
+            <span class='absolute left-45 bottom-11'>rating: {{book_1.avg_rating}} ⭐</span>
+            <div class='w-full absolute bottom-4 flex gap-12'>
+                <a href="{% url 'book_detail' book_1.id %}" class='hover:text-orange-400 font-bold text-xl tr-dur'>Просмотреть</a>
+                <p class='text-green-400'>{{book_1.price}}$</p>
+            </div>
+        </div>
     </div>
-
-    <div class="glass p-6 rounded-2xl text-center">
-        <h2 class="text-3xl">{{ stats.avg_price|floatformat:1 }}$</h2>
-        <p>Средняя цена</p>
+    {% if book_2 %}
+    <br><br>
+    <div class='px-20 flex flex-row-reverse h-[420px]' data-aos="fade-left">
+        <img src="{{book_2.image.url}}" class='w-[30%] rounded-xl h-[410px] object-cover' alt="{{ book_2.title}}">
+        <div class='w-[65%] mx-auto h-full relative'>
+            <h1 class='text-2xl font-bold'>{{book_2.title}}</h1>
+            <h2 class='font-semibold'>By: {{book_2.author}}</h2>
+            <br>
+            <p class='text-gray-600'>{{book_2.description}}</p>
+            <span class='absolute left-45 bottom-11'>rating: {{book_2.avg_rating}} ⭐</span>
+            <div class='w-full absolute bottom-4 flex gap-12'>
+                <a href="{% url 'book_detail' book_2.id %}" class='hover:text-orange-400 font-bold text-xl tr-dur'>Просмотреть</a>
+                <p class='text-green-400'>{{book_2.price}}$</p>
+            </div>
+        </div>
     </div>
-
-    <div class="glass p-6 rounded-2xl text-center">
-        <h2 class="text-3xl">{{ avg_rating.avg_rating }}</h2>
-        <p>Рейтинг</p>
+    {% endif %}
+    {% if book_3 %}
+    <div class='px-20 flex h-[420px]' data-aos="fade-right">
+        <img src="{{book_3.image.url}}" class='w-[30%] rounded-xl h-[410px] object-scale-down' alt="{{ book_3.title}}">
+        <div class='w-[65%] mx-auto h-full relative'>
+            <h1 class='text-2xl font-bold'>{{book_3.title}}</h1>
+            <h2 class='font-semibold'>By: {{book_3.author}}</h2>
+            <br>
+            <p class='text-gray-600'>{{book_3.description}}</p>
+            <span class='absolute left-45 bottom-11'>rating: {{book_3.avg_rating}} ⭐</span>
+            <div class='w-full absolute bottom-4 flex gap-12'>
+                <a href="{% url 'book_detail' book_3.id %}" class='hover:text-orange-400 font-bold text-xl tr-dur'>Просмотреть</a>
+                <p class='text-green-400'>{{book_3.price}}$</p>
+            </div>
+        </div>
     </div>
-
+    {% endif %}
 </section>
 
 {% endblock %}

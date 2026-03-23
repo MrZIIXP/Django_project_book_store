@@ -3,21 +3,21 @@
 {% block content %}
 <div class="flex justify-center items-center h-[80vh]">
 
-<form method="post" class="glass p-10 rounded-2xl w-96 space-y-4 fade-in">
+<form method="post" class="p-10 rounded-2xl w-96 space-y-4 fade-in">
 {% csrf_token %}
 
 <h2 class="text-3xl text-center">Регистрация</h2>
 
-<input name="username" placeholder="Username" class="w-full p-3 rounded bg-black/30">
-<input name="email" placeholder="Email" class="w-full p-3 rounded bg-black/30">
+<input name="username" placeholder="Username" class="w-full p-3 rounded border border-orange-400">
+<input name="email" placeholder="Email" class="w-full p-3 rounded border border-orange-400">
 
 <input name="password" type="password" placeholder="Пароль"
-class="w-full p-3 rounded bg-black/30">
+class="w-full p-3 rounded border border-orange-400">
 
 <input name="confirm_password" type="password" placeholder="Повторите пароль"
-class="w-full p-3 rounded bg-black/30">
+class="w-full p-3 rounded border border-orange-400">
 
-<button class="w-full bg-indigo-500 py-3 rounded-xl hover:scale-105 transition">
+<button class="w-full bg-orange-500 text-white py-3 rounded-xl hover:scale-105 transition">
 Создать аккаунт
 </button>
 

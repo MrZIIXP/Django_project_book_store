@@ -7,11 +7,11 @@
 
 <input name="search" placeholder="Поиск..."
 value="{{ request.GET.search }}"
-class="w-full p-3 rounded bg-black/30 focus:ring-2 focus:ring-indigo-500">
+class="w-full p-3 rounded border border-orange-400 outline-none focus:ring-2 focus:ring-orange-400 tr-dur">
 
 <div class="grid grid-cols-4 gap-4">
 
-<select name="category" class="p-2 rounded bg-black/30">
+<select name="category" class="p-2 rounded border border-orange-400">
 <option value="">Категория</option>
 {% for c in categories %}
 <option value="{{c.id}}" {% if request.GET.category == c.id|stringformat:"s" %}selected{% endif %}>
@@ -20,26 +20,26 @@ class="w-full p-3 rounded bg-black/30 focus:ring-2 focus:ring-indigo-500">
 {% endfor %}
 </select>
 
-<select name="author" class="p-2 rounded bg-black/30">
+<select name="author" class="p-2 rounded border border-orange-400">
 <option value="">Автор</option>
 {% for a in authors %}
 <option value="{{a.id}}">{{a.full_name}}</option>
 {% endfor %}
 </select>
 
-<input name="min_price" placeholder="Мин цена" class="p-2 rounded bg-black/30">
-<input name="max_price" placeholder="Макс цена" class="p-2 rounded bg-black/30">
+<input name="min_price" placeholder="Мин цена" class="p-2 rounded outline-none border outline-none focus:ring focus:ring-orange-400 border-orange-400">
+<input name="max_price" placeholder="Макс цена" class="p-2 rounded outline-none border outline-none focus:ring focus:ring-orange-400 border-orange-400">
 
 </div>
 
-<select name="sort" class="p-2 rounded bg-black/30">
+<select name="sort" class="p-2 rounded border outline-none border-orange-400">
 <option value="">Сортировка</option>
 <option value="price">Цена ↑</option>
 <option value="-price">Цена ↓</option>
 <option value="-created_at">Новые</option>
 </select>
 
-<button class="bg-indigo-500 px-4 py-2 rounded">Применить</button>
+<button class="bg-orange-400 text-white hover:scale-105 tr-dur px-4 py-2 rounded">Применить</button>
 
 </form>
 
